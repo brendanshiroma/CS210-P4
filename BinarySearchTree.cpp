@@ -8,21 +8,26 @@ namespace BST_NS {
     }
 
     BinarySearchTree(const BinarySearchTree& other) {
-
+        makeEmpty();
+        copyTree(other.root, root); //wrong fix this
+        tree_size = other.tree_size;
     }
 
     virtual ~BinarySearchTree() {
-
+        
     }
-
+    template<class T>
     void insert(T item) {
+        TreeNode<T> *newNode = new TreeNode(item);
+        if(newNode < ) {
 
+        }
     }
-
+    template<class T>
     void remove(T item) {
-
+        
     }
-
+    template<class T>
     bool inTree(T item) const {
 
     }

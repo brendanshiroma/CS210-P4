@@ -1,3 +1,9 @@
+/**
+ * @file test.cpp
+ * @author <Brendan Shiroma> <129846870>
+ * @brief This is the cpp file test.cpp that is used to test the other cpp files
+ * @date 2024-04-30
+ */
 #include <iostream>
 #include "BinarySearchTree.h"
 #include "HashTable.h"

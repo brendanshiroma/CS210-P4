@@ -1,12 +1,28 @@
+/**
+ * @file BinarySearchTree.cpp
+ * @author <Brendan Shiroma> <129846870>
+ * @brief This is the cpp file HashTable.cpp
+ * @date 2024-04-30
+ */
 #include "BinarySearchTree.h"
 
 namespace BST_NS {
 
-    // Default Constructor
+    /**
+     * @brief Construct a new Binary Search Tree object
+     * 
+     * @note initializes the root to be nullptr, and size to be 0
+    */
     template<class T>
     BinarySearchTree<T>::BinarySearchTree() : root(nullptr), tree_size(0) {}
 
-    // Copy Constructor
+    /**
+     * @brief Construct a new Binary Search Tree object, copying off another tree
+     * 
+     * @note initializes the root to copy the other tree's root, and sets size to other 
+     *       tree's size
+     * @note however if other tree is empty, root is nullptr, and size is 0
+    */
     template<class T>
     BinarySearchTree<T>::BinarySearchTree(const BinarySearchTree& other) {
         if (other.root == nullptr) {
@@ -14,17 +30,22 @@ namespace BST_NS {
             tree_size = 0;
         } else {
             root = new Node<T>(*other.root); // Create a new root node with the same value as other's root
-            copyNodes(root, other.root); // Recursively copy the rest of the nodes
+            copyNodes(root, other.root); // Recursively copy the rest of the nodes with helper function
             tree_size = other.tree_size;
         }
     }
-
-    // Destructor
+    /**
+     * @brief deletes all nodes in Binary Search Tree
+    */
     template<class T>
     BinarySearchTree<T>::~BinarySearchTree() {
         makeEmpty();
     }
-
+    /**
+     * @brief inserts item into tree properly following BST rules
+     * 
+     * @param item generic object to be inserted into tree
+    */
     // Insert an item into the tree
     template<class T>
     void BinarySearchTree<T>::insert(T item) {
@@ -54,8 +75,13 @@ namespace BST_NS {
             }
         }
     }
-
-    // Remove an item from the tree
+    /**
+     * @brief removes a specified item from the tree
+     * 
+     * @param item generic object to be removed
+     * 
+     * @note need to restructure tree after removal
+    */
     template<class T>
     void BinarySearchTree<T>::remove(T item) {
         if (root == nullptr)
@@ -72,7 +98,7 @@ namespace BST_NS {
         if (curr == nullptr) {
             return;
         }
-        //Node has no children
+        // Node has no children
         if (curr->leftLink == nullptr && curr->rightLink == nullptr) {
             if (parent == nullptr) {
                 delete root;
@@ -86,7 +112,7 @@ namespace BST_NS {
             }
             tree_size--;
         }
-        //Node has one child
+        // Node has one child
         else if (curr->leftLink == nullptr) {
             if (parent == nullptr) {
                 root = curr->rightLink;
@@ -108,7 +134,7 @@ namespace BST_NS {
             delete curr;
             tree_size--;
         }
-        //Node has two children
+        // Node has two children
         else {
             TreeNode<T>* successor = curr->rightLink;
             TreeNode<T>* successorParent = curr;
@@ -129,8 +155,13 @@ namespace BST_NS {
             tree_size--;
         }
     }
-
-    // Check if an item exists in the tree
+    /**
+     * @brief checks if target is in BST
+     * 
+     * @param item generic item to be checked if in tree
+     * 
+     * @return true if found, false otherwise
+    */
     template<class T>
     bool BinarySearchTree<T>::inTree(T item) const {
         TreeNode<T>* curr = root;
@@ -146,6 +177,13 @@ namespace BST_NS {
         return false;
     }
 
+    /**
+     * @brief assigns the contents of another BST to the current BST
+     * 
+     * @param other the Binary Search Tree object whose nodes to assign
+     * 
+     * @return a reference to the current BST instance after assignment
+     */
     template<class T>
     BinarySearchTree<T>& BinarySearchTree<T>::operator=(const BinarySearchTree other) {
         if (this != &other) {
@@ -161,45 +199,80 @@ namespace BST_NS {
         return *this;
     }
 
-    // Empty the tree
+    /**
+     * @brief emptys all the nodes in the tree
+     * 
+     * @note uses helper method to recursively delete the nodes
+     * @note sets the root back to nullptr and size to 0
+    */
     template<class T>
     void BinarySearchTree<T>::makeEmpty() {
         deleteTreeHelper(root);
         root = nullptr; 
         tree_size = 0;
     }
-
-    // Pre-Order Traversal
+    /**
+     * @brief prints an array in pre-Order
+     * 
+     * @note uses helper method that recursively adds nodes in correct order
+    */
     template<class T>
     void BinarySearchTree<T>::preOrderShow() const {
         preOrderHelper(root);
     }
 
+    /**
+     * @brief prints an array in in-Order
+     * 
+     * @note uses helper method that recursively adds nodes in correct order
+    */
     // In-Order Traversal
     template<class T>
     void BinarySearchTree<T>::inOrderShow() const {
         inOrderHelper(root);
     }
 
+    /**
+     * @brief prints an array in post-Order
+     * 
+     * @note uses helper method that recursively adds nodes in correct order
+    */
     // Post-Order Traversal
     template<class T>
     void BinarySearchTree<T>::postOrderShow() const {
         postOrderHelper(root);
     }
 
-    // Return the size of the tree
+    /**
+     * @brief returns the size of the tree
+     * 
+     * @return the size of the tree
+    */
     template<class T>
     int BinarySearchTree<T>::size() const {
         return tree_size;
     }
 
-    // Calculate the height of the tree
+    /**
+     * @brief returns height of the tree
+     * 
+     * @note uses helper method that uses recursion to find the largest height in the tree
+    */
     template<class T>
     int BinarySearchTree<T>::height() {
         return treeHeight(root);
     }
 
-    // Helper function to copy a tree
+    /**
+     * @brief helper method to all the nodes in a tree recursively 
+     * 
+     * @param node node to be copied
+     * 
+     * @note uses recursion to traverse through the whole tree and all the 
+     *       left and right subtrees of each node
+     * 
+     * @return the new tree with the copied nodes
+    */
     template<class T>
     TreeNode<T>* copyTree(TreeNode<T>* node) {
         if (node == nullptr)
@@ -208,7 +281,13 @@ namespace BST_NS {
             return new TreeNode<T>(node->data, copyTree(node->leftLink), copyTree(node->rightLink));
     }
 
-    // Helper function to delete a tree
+    /**
+     * @brief helper method to delete a tree recursively
+     * 
+     * @param node address of node to start deleting from
+     * 
+     * @note traverses through whole tree and recursively goes through all nodes
+    */
     template<class T>
     void deleteTreeHelper(TreeNode<T>* &node) {
         if (node != nullptr) {
@@ -219,7 +298,13 @@ namespace BST_NS {
         }
     }
 
-    // Helper function for pre-order traversal
+    /**
+     * @brief helper function to traverse in pre-Order
+     * 
+     * @param node the node to start the traversal
+     * 
+     * @note prints out the data, then recursively goes through left and right subtrees
+    */
     template<class T>
     void preOrderHelper(TreeNode<T>* node) {
         if (node != nullptr) {
@@ -229,7 +314,13 @@ namespace BST_NS {
         }
     }
 
-    // Helper function for in-order traversal
+    /**
+     * @brief helper function to traverse in in-Order
+     * 
+     * @param node the node to start the traversal
+     * 
+     * @note recursively goes through left subtree, then prints, then right subtree
+    */
     template<class T>
     void inOrderHelper(TreeNode<T>* node) {
         if (node != nullptr) {
@@ -239,7 +330,13 @@ namespace BST_NS {
         }
     }
 
-    // Helper function for post-order traversal
+    /**
+     * @brief helper function to traverse in post-Order
+     * 
+     * @param node the node to start the traversal
+     * 
+     * @note recursively goes through left subtree, then right subtree, then prints
+    */
     template<class T>
     void postOrderHelper(TreeNode<T>* node){
         if (node != nullptr) {
@@ -249,7 +346,14 @@ namespace BST_NS {
         }
     }
 
-    // Helper function to calculate the height of the tree
+    /**
+     * @brief helper function to calculate height of the tree
+     * 
+     * @param node the node to start the traversal (the root)
+     * 
+     * @note if the node is null, there is no tree
+     * @note else recursively find the max height by traversing through left and right subtrees
+    */
     template<class T>
     int treeHeight(TreeNode<T>* node) {
         if (node == nullptr)
@@ -257,6 +361,20 @@ namespace BST_NS {
         else
             return 1 + std::max(treeHeight(node->leftLink), treeHeight(node->rightLink));
     }
+
+/**
+ * @brief helper function that recursively copies the nodes of a binary search tree
+ * 
+ * @param current a reference to a pointer to the current node in the new binary search tree being constructed.
+ * @param otherNode a pointer to the corresponding node in the binary search tree being copied from.
+ * 
+ * @details
+ * This function is used to create a deep copy of the nodes in a binary search tree.
+ * It traverses the binary search tree rooted at the node `otherNode` in a depth-first manner.
+ * For each node encountered, it creates a new node with the same value and recursively copies its left and right subtrees.
+ * The new nodes are linked together to form a binary search tree with the same structure and values as the original tree.
+
+ */
 
     // Helper Function to recursively copy nodes in a BST
     template<class T>

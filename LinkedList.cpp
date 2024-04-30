@@ -1,3 +1,13 @@
+/**
+ * @file LinkedList.cpp
+ * @author <Brendan Shiroma> <129846870>
+ * @brief This is the cpp file LinkedList.cpp
+ * @note This contians the implementations of the functions given from linked
+ * This contains type definitions and function declarations for manipulating a linked
+ *       list to store data of any type (T). The linked list is given as a pointer of type
+ *       Node<T>* which points to the head (first) node of the list. The implementation of
+ *       the functions are given in the file "LinkedList.cpp"
+ */
 #include "LinkedList.h"
 
 namespace LinkedListNS {

@@ -13,7 +13,8 @@ namespace BST_NS {
             root = nullptr;
             tree_size = 0;
         } else {
-            root = copyTree(other.root);
+            root = new Node<T>(*other.root); // Create a new root node with the same value as other's root
+            copyNodes(root, other.root); // Recursively copy the rest of the nodes
             tree_size = other.tree_size;
         }
     }
@@ -145,12 +146,16 @@ namespace BST_NS {
         return false;
     }
 
-    // Assignment operator overload
     template<class T>
     BinarySearchTree<T>& BinarySearchTree<T>::operator=(const BinarySearchTree other) {
         if (this != &other) {
             makeEmpty();
-            root = copyTree(other.root);
+            if (other.root != nullptr) {
+                root = new Node<T>(*other.root); // Create a new root node with the same value as other's root
+                copyNodes(root, other.root); // Recursively copy the rest of the nodes
+            } else {
+                root = nullptr;
+            }
             tree_size = other.tree_size;
         }
         return *this;
@@ -253,4 +258,16 @@ namespace BST_NS {
             return 1 + std::max(treeHeight(node->leftLink), treeHeight(node->rightLink));
     }
 
+    // Helper Function to recursively copy nodes in a BST
+    template<class T>
+    void copyNodes(Node<T>*& current, const Node<T>* otherNode) {
+        if (otherNode->left != nullptr) {
+            current->left = new Node<T>(*otherNode->left); // Copy left child
+            copyNodes(current->left, otherNode->left); // Recursively copy its left subtree
+        }
+        if (otherNode->right != nullptr) {
+            current->right = new Node<T>(*otherNode->right); // Copy right child
+            copyNodes(current->right, otherNode->right); // Recursively copy its right subtree
+        }
+    }
 } // namespace BST_NS

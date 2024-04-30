@@ -9,8 +9,13 @@ namespace BST_NS {
     // Copy Constructor
     template<class T>
     BinarySearchTree<T>::BinarySearchTree(const BinarySearchTree& other) {
-        root = copyTree(other.root);
-        tree_size = other.tree_size;
+        if (other.root == nullptr) {
+            root = nullptr;
+            tree_size = 0;
+        } else {
+            root = copyTree(other.root);
+            tree_size = other.tree_size;
+        }
     }
 
     // Destructor
@@ -54,10 +59,8 @@ namespace BST_NS {
     void BinarySearchTree<T>::remove(T item) {
         if (root == nullptr)
             return;
-
         TreeNode<T>* parent = nullptr;
         TreeNode<T>* curr = root;
-
         while (curr != nullptr && curr->data != item) {
             parent = curr;
             if (item < curr->data)
@@ -65,11 +68,10 @@ namespace BST_NS {
             else
                 curr = curr->rightLink;
         }
-
-        if (curr == nullptr)
+        if (curr == nullptr) {
             return;
-
-        // Case 1: Node has no children
+        }
+        //Node has no children
         if (curr->leftLink == nullptr && curr->rightLink == nullptr) {
             if (parent == nullptr) {
                 delete root;
@@ -83,7 +85,7 @@ namespace BST_NS {
             }
             tree_size--;
         }
-        // Case 2: Node has one child
+        //Node has one child
         else if (curr->leftLink == nullptr) {
             if (parent == nullptr) {
                 root = curr->rightLink;
@@ -105,7 +107,7 @@ namespace BST_NS {
             delete curr;
             tree_size--;
         }
-        // Case 3: Node has two children
+        //Node has two children
         else {
             TreeNode<T>* successor = curr->rightLink;
             TreeNode<T>* successorParent = curr;
@@ -214,7 +216,7 @@ namespace BST_NS {
 
     // Helper function for pre-order traversal
     template<class T>
-    void preOrderHelperHelper(TreeNode<T>* node) {
+    void preOrderHelper(TreeNode<T>* node) {
         if (node != nullptr) {
             std::cout << node->data << " ";
             preOrderHelper(node->leftLink);

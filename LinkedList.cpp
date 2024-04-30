@@ -18,10 +18,14 @@ namespace LinkedListNS {
 
     template<class T>
     void deleteNode(Node<T>* before) {
+        if (before == nullptr || before->next == nullptr) {
+            return;  // Invalid input, do nothing.
+        }
         Node<T> *temp = before->next;
         before->next = temp->next;
         delete temp;
     }
+
 
     template<class T>
     void deleteFirstNode(Node<T>*& head) {

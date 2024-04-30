@@ -158,7 +158,7 @@ namespace BST_NS {
     template<class T>
     void BinarySearchTree<T>::makeEmpty() {
         deleteTreeHelper(root);
-        root = nullptr;
+        root = nullptr; 
         tree_size = 0;
     }
 
@@ -214,7 +214,7 @@ namespace BST_NS {
 
     // Helper function for pre-order traversal
     template<class T>
-    void preOrderHelperHelper(TreeNode<T>* node) const {
+    void preOrderHelperHelper(TreeNode<T>* node) {
         if (node != nullptr) {
             std::cout << node->data << " ";
             preOrderHelper(node->leftLink);
@@ -224,7 +224,7 @@ namespace BST_NS {
 
     // Helper function for in-order traversal
     template<class T>
-    void inOrderHelper(TreeNode<T>* node) const {
+    void inOrderHelper(TreeNode<T>* node) {
         if (node != nullptr) {
             inOrderHelper(node->leftLink);
             std::cout << node->data << " ";
@@ -234,7 +234,7 @@ namespace BST_NS {
 
     // Helper function for post-order traversal
     template<class T>
-    void postOrderHelper(TreeNode<T>* node) const {
+    void postOrderHelper(TreeNode<T>* node){
         if (node != nullptr) {
             postOrderHelper(node->leftLink);
             postOrderHelper(node->rightLink);

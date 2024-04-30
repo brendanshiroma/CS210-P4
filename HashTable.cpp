@@ -18,23 +18,34 @@ namespace HashTableNS {
         }
     }
 
-    // Checks if the target is in the hash table
-    bool HashTable::containsString(string target) const {
-        int hashValue = computeHash(target);
-        if (hashArray[hashValue] == nullptr) {
-            return false;
-        } else {
-            return hashArray[hashValue]->contains(target);
-        }
-    }
-
     // Adds a new string to the hash table
     void HashTable::put(string s) {
         int hashValue = computeHash(s);
         if (hashArray[hashValue] == nullptr) {
             hashArray[hashValue] = new Node<string>(s, nullptr);
         } else {
-            hashArray[hashValue]->insert(s);
+            Node<string>* current = hashArray[hashValue];
+            while (current->getLink() != nullptr) {
+                current = current->getLink();
+            }
+            current->setLink(new Node<string>(s, nullptr));
+        }
+    }
+
+    // Checks if the target is in the hash table
+    bool HashTable::containsString(string target) const {
+        int hashValue = computeHash(target);
+        if (hashArray[hashValue] == nullptr) {
+            return false;
+        } else {
+            Node<string>* current = hashArray[hashValue];
+            while (current != nullptr) {
+                if (current->getData() == target) {
+                    return true;
+                }
+                current = current->getLink();
+            }
+            return false;
         }
     }
 

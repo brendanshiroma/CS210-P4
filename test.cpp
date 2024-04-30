@@ -50,24 +50,24 @@ void testLinkedList() {
     // Test insertion
     LinkedListNS::headInsert(head, 10);
     LinkedListNS::insert(head, 20);
-    LinkedListNS::insert(head->next, 15);
+    LinkedListNS::insert(head->getLink(), 15);
 
     // Test traversal
     std::cout << "Linked list: ";
     LinkedListNS::Node<int>* curr = head;
     while (curr != nullptr) {
-        std::cout << curr->data << " ";
-        curr = curr->next;
+        std::cout << curr->getData() << " ";
+        curr = curr->getLink();
     }
     std::cout << std::endl;
 
     // Test deletion
-    LinkedListNS::deleteNode(head->next);
+    LinkedListNS::deleteNode(head->getLink());
     std::cout << "Linked list after deleting node with data 15: ";
     curr = head;
     while (curr != nullptr) {
-        std::cout << curr->data << " ";
-        curr = curr->next;
+        std::cout << curr->getData() << " ";
+        curr = curr->getLink();
     }
     std::cout << std::endl;
 
@@ -76,15 +76,15 @@ void testLinkedList() {
     std::cout << "Linked list after deleting first node: ";
     curr = head;
     while (curr != nullptr) {
-        std::cout << curr->data << " ";
-        curr = curr->next;
+        std::cout << curr->getData() << " ";
+        curr = curr->getLink();
     }
     std::cout << std::endl;
 
     // Test searching
     LinkedListNS::headInsert(head, 10);
     LinkedListNS::insert(head, 20);
-    LinkedListNS::insert(head->next, 15);
+    LinkedListNS::insert(head->getLink(), 15);
 
     LinkedListNS::Node<int>* searchResult = LinkedListNS::search(head, 20);
     std::cout << "Search result for 20: " << (searchResult != nullptr ? "Found" : "Not found") << std::endl; // Should output Found

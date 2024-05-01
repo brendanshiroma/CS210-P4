@@ -8,8 +8,9 @@
 
 namespace BST_NS {
 
-    template<class T>
+
     class BinarySearchTree {
+
     public:
         /**
          * @brief Construct a new Binary Search Tree object

@@ -19,6 +19,7 @@ namespace LinkedListNS {
         Node<T> *newNode = new Node<T>(theData, head);
         head = newNode;
     }
+
     /**
      * @brief Inserts the data after the specified node
      * 
@@ -30,6 +31,7 @@ namespace LinkedListNS {
         Node<T> *newNode = new Node<T>(theData, afterMe->getLink());
         afterMe->setLink(newNode);
     }
+
     /**
      * @brief deletes the node before the specified node
      * 
@@ -37,13 +39,14 @@ namespace LinkedListNS {
     */
     template<class T>
     void deleteNode(Node<T>* before) {
-        if (before == nullptr || before->getLink() == nullptr) {
+        if (before == nullptr || before->getLink() == nullptr) { // checks if the node to delete is at the end of the linked list
             return;
-        }
+        } 
         Node<T> *temp = before->getLink();
         before->setLink(temp->getLink());
         delete temp;
     }
+
     /**
      * @brief deletes the head of the linked list, and sets the head to the node after head
      * 
@@ -51,13 +54,14 @@ namespace LinkedListNS {
     */
     template<class T>
     void deleteFirstNode(Node<T>*& head) {
-        if (head == nullptr) {
+        if (head == nullptr) { // if the list is empty, there is no head to delete so return
             return;
         }
         Node<T> *temp = head;
         head = head->getLink();
         delete temp;
     }
+
     /**
      * @brief searches for specified node, starting at the head
      * 
@@ -69,11 +73,11 @@ namespace LinkedListNS {
     template<class T>
     Node<T>* search(Node<T>* head, const T& target) {
         Node<T> *curr = head;
-        while (curr != nullptr) {
+        while (curr != nullptr) { // traverse through linked list
             if (curr->getData() == target) {
                 return curr;
             }
-            curr = curr->getLink();
+            curr = curr->getLink(); // iterator
         }
         return nullptr;
     }

@@ -8,6 +8,7 @@
 
 namespace BST_NS {
 
+public:
     /**
      * @brief Construct a new Binary Search Tree object
      * 
@@ -29,11 +30,12 @@ namespace BST_NS {
             root = nullptr;
             tree_size = 0;
         } else {
-            root = new Node<T>(*other.root); // Create a new root node with the same value as other's root
-            copyNodes(root, other.root); // Recursively copy the rest of the nodes with helper function
+            root = new Node<T>(*other.root); // create a new root node with the same value as other's root
+            copyNodes(root, other.root); // recursively copy the rest of the nodes with helper function
             tree_size = other.tree_size;
         }
     }
+
     /**
      * @brief deletes all nodes in Binary Search Tree
     */
@@ -41,6 +43,7 @@ namespace BST_NS {
     BinarySearchTree<T>::~BinarySearchTree() {
         makeEmpty();
     }
+
     /**
      * @brief inserts item into tree properly following BST rules
      * 
@@ -49,22 +52,22 @@ namespace BST_NS {
     // Insert an item into the tree
     template<class T>
     void BinarySearchTree<T>::insert(T item) {
-        if (root == nullptr) {
+        if (root == nullptr) { //if the tree is empty, set the root to the 
             root = new TreeNode<T>(item, nullptr, nullptr);
             tree_size++;
         } else {
             TreeNode<T>* curr = root;
             while (true) {
-                if (item < curr->data) {
-                    if (curr->leftLink == nullptr) {
+                if (item < curr->data) { // if item value is less than current, traverse left subtree
+                    if (curr->leftLink == nullptr) { // if left child is null, set left child to new node
                         curr->leftLink = new TreeNode<T>(item, nullptr, nullptr);
                         tree_size++;
                         break;
                     } else {
-                        curr = curr->leftLink;
+                        curr = curr->leftLink; // keep traversing
                     }
-                } else {
-                    if (curr->rightLink == nullptr) {
+                } else { // value is greater than current, traverse right subtree
+                    if (curr->rightLink == nullptr) { // if right child is null, set right child to new node
                         curr->rightLink = new TreeNode<T>(item, nullptr, nullptr);
                         tree_size++;
                         break;
@@ -75,6 +78,7 @@ namespace BST_NS {
             }
         }
     }
+
     /**
      * @brief removes a specified item from the tree
      * 
@@ -82,38 +86,38 @@ namespace BST_NS {
      * 
      * @note need to restructure tree after removal
     */
-    template<class T>
     void BinarySearchTree<T>::remove(T item) {
-        if (root == nullptr)
+        if (root == nullptr) // If the tree is empty, there's nothing to remove
             return;
-        TreeNode<T>* parent = nullptr;
-        TreeNode<T>* curr = root;
+        TreeNode<T>* parent = nullptr; 
+        TreeNode<T>* curr = root; 
+        // Traverse through the tree to find the node to remove and its parent
         while (curr != nullptr && curr->data != item) {
-            parent = curr;
+            parent = curr; // Update parent pointer
             if (item < curr->data)
                 curr = curr->leftLink;
             else
                 curr = curr->rightLink;
         }
-        if (curr == nullptr) {
+        if (curr == nullptr) { // If the item isn't found, return
             return;
         }
         // Node has no children
-        if (curr->leftLink == nullptr && curr->rightLink == nullptr) {
-            if (parent == nullptr) {
+        if (curr->leftLink == nullptr && curr->rightLink == nullptr) { 
+            if (parent == nullptr) { // If the node is the root
                 delete root;
                 root = nullptr;
-            } else if (parent->leftLink == curr) {
+            } else if (parent->leftLink == curr) { // If the node is a left child
                 delete parent->leftLink;
                 parent->leftLink = nullptr;
-            } else {
+            } else { // If the node is a right child
                 delete parent->rightLink;
                 parent->rightLink = nullptr;
             }
-            tree_size--;
+            tree_size--; // Decrement tree size
         }
         // Node has one child
-        else if (curr->leftLink == nullptr) {
+        else if (curr->leftLink == nullptr) { // If the node has only a right child
             if (parent == nullptr) {
                 root = curr->rightLink;
             } else if (parent->leftLink == curr) {
@@ -123,7 +127,7 @@ namespace BST_NS {
             }
             delete curr;
             tree_size--;
-        } else if (curr->rightLink == nullptr) {
+        } else if (curr->rightLink == nullptr) { // If the node has only a left child
             if (parent == nullptr) {
                 root = curr->leftLink;
             } else if (parent->leftLink == curr) {
@@ -136,25 +140,24 @@ namespace BST_NS {
         }
         // Node has two children
         else {
-            TreeNode<T>* successor = curr->rightLink;
+            TreeNode<T>* successor = curr->rightLink; // Find the successor node
             TreeNode<T>* successorParent = curr;
-
-            while (successor->leftLink != nullptr) {
+            while (successor->leftLink != nullptr) { // Traverse left to find the leftmost node in the right subtree
                 successorParent = successor;
                 successor = successor->leftLink;
             }
-
             if (successorParent != curr) {
                 successorParent->leftLink = successor->rightLink;
             } else {
                 successorParent->rightLink = successor->rightLink;
             }
-
-            curr->data = successor->data;
+            curr->data = successor->data; // Replace current node with its successor
             delete successor;
             tree_size--;
         }
     }
+
+
     /**
      * @brief checks if target is in BST
      * 
@@ -165,12 +168,12 @@ namespace BST_NS {
     template<class T>
     bool BinarySearchTree<T>::inTree(T item) const {
         TreeNode<T>* curr = root;
-        while (curr != nullptr) {
-            if (curr->data == item) {
+        while (curr != nullptr) { // traverses through tree
+            if (curr->data == item) { 
                 return true;
-            } else if (item < curr->data) {
+            } else if (item < curr->data) { // if item is less than curr, traverse left subtree
                 curr = curr->leftLink;
-            } else {
+            } else { // traverse right sub tree
                 curr = curr->rightLink;
             }
         }
@@ -211,6 +214,7 @@ namespace BST_NS {
         root = nullptr; 
         tree_size = 0;
     }
+    
     /**
      * @brief prints an array in pre-Order
      * 
@@ -263,6 +267,7 @@ namespace BST_NS {
         return treeHeight(root);
     }
 
+private:
     /**
      * @brief helper method to all the nodes in a tree recursively 
      * 
@@ -362,21 +367,15 @@ namespace BST_NS {
             return 1 + std::max(treeHeight(node->leftLink), treeHeight(node->rightLink));
     }
 
-/**
- * @brief helper function that recursively copies the nodes of a binary search tree
- * 
- * @param current a reference to a pointer to the current node in the new binary search tree being constructed.
- * @param otherNode a pointer to the corresponding node in the binary search tree being copied from.
- * 
- * @details
- * This function is used to create a deep copy of the nodes in a binary search tree.
- * It traverses the binary search tree rooted at the node `otherNode` in a depth-first manner.
- * For each node encountered, it creates a new node with the same value and recursively copies its left and right subtrees.
- * The new nodes are linked together to form a binary search tree with the same structure and values as the original tree.
-
- */
-
-    // Helper Function to recursively copy nodes in a BST
+    /**
+     * @brief helper function that recursively copies the nodes of a binary search tree
+     * 
+     * @param current the current node in the new binary search tree being constructed
+     * @param otherNode the node in the binary search tree being copied from
+     * 
+     * @note traverses through bst, and when encounters a node, creates a copy of the node
+     *       and recursively copies left and right subtrees
+    */
     template<class T>
     void copyNodes(Node<T>*& current, const Node<T>* otherNode) {
         if (otherNode->left != nullptr) {

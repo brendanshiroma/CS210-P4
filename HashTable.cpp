@@ -29,6 +29,7 @@ namespace HashTableNS {
             delete hashArray[i];
         }
     }
+
     /**
      * @brief adds a string into HashTable using chaining
      * 
@@ -37,15 +38,16 @@ namespace HashTableNS {
     void HashTable::put(string s) {
         int hashValue = computeHash(s);
         if (hashArray[hashValue] == nullptr) {
-            hashArray[hashValue] = new Node<string>(s, nullptr);
+            hashArray[hashValue] = new Node<string>(s, nullptr); // if nothing in bucket, map to bucket
         } else {
             Node<string>* current = hashArray[hashValue];
-            while (current->getLink() != nullptr) {
+            while (current->getLink() != nullptr) { // traverses to end of linked list in chaining
                 current = current->getLink();
             }
-            current->setLink(new Node<string>(s, nullptr));
+            current->setLink(new Node<string>(s, nullptr)); // maps string into end of linked list in the correct bucket
         }
     }
+
     /**
      * @brief checks if target is in HashTable
      * 
@@ -55,7 +57,7 @@ namespace HashTableNS {
     */
     bool HashTable::containsString(string target) const {
         int hashValue = computeHash(target);
-        if (hashArray[hashValue] == nullptr) {
+        if (hashArray[hashValue] == nullptr) { // if bucket is empty, return false
             return false;
         } else {
             Node<string>* current = hashArray[hashValue];
@@ -68,6 +70,7 @@ namespace HashTableNS {
             return false;
         }
     }
+
     /**
      * @brief maps the string into the proper bucket
      * 
@@ -77,11 +80,13 @@ namespace HashTableNS {
     */
     // Compute hash value for string
     int HashTable::computeHash(string s) {
+        const int modulo = 1000000007;  // A large prime number for modulo operation
         int hash = 0;
         for (char c : s) {
-            hash += c;
+            hash = (hash * 128 + int(c)) % modulo; // 128 is the maximum ASCII value for a character
         }
         return hash % SIZE;
     }
+
 
 } // namespace HashTableNS

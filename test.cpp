@@ -7,41 +7,45 @@
         // Test BinarySearchTree
         BST_NS::BinarySearchTree<int> bst;
 
-        // Test insertion
+        // Test insertion and deletion
         bst.insert(10);
         bst.insert(5);
         bst.insert(15);
         bst.insert(3);
         bst.insert(7);
+        bst.remove(3);
         bst.insert(12);
+        bst.remove(10);
         bst.insert(18);
 
         // Test traversals
         std::cout << "In-order traversal: ";
-        bst.inOrderShow(); // Should output 3 5 7 10 12 15 18
+        bst.inOrderShow(); 
         std::cout << std::endl;
 
         std::cout << "Pre-order traversal: ";
-        bst.preOrderShow(); // Should output 10 5 3 7 15 12 18
+        bst.preOrderShow(); 
         std::cout << std::endl;
 
         std::cout << "Post-order traversal: ";
-        bst.postOrderShow(); // Should output 3 7 5 12 18 15 10
+        bst.postOrderShow(); 
         std::cout << std::endl;
 
         // Test size and height
-        std::cout << "Tree size: " << bst.size() << std::endl; // Should output 7
-        std::cout << "Tree height: " << bst.height() << std::endl; // Should output 2
+        std::cout << "Tree size: " << bst.size() << std::endl;
+        std::cout << "Tree height: " << bst.height() << std::endl;
 
         // Test removal
         bst.remove(5);
         std::cout << "In-order traversal after removing 5: ";
-        bst.inOrderShow(); // Should output 3 7 10 12 15 18
+        bst.inOrderShow(); 
         std::cout << std::endl;
 
         // Test searching
         std::cout << "Is 7 in tree? " << (bst.inTree(7) ? "Yes" : "No") << std::endl; // Should output Yes
         std::cout << "Is 5 in tree? " << (bst.inTree(5) ? "Yes" : "No") << std::endl; // Should output No
+        bst.remove(15);
+        std::cout << "Is 15 in tree? " << (bst.inTree(15) ? "Yes" : "No") << std::endl; // Should output No
     }
 
     void testLinkedList() {
@@ -103,20 +107,23 @@
         ht.put("orange");
 
         // Test searching
-        std::cout << "Is 'apple' in hash table? " << (ht.containsString("apple") ? "Yes" : "No") << std::endl; // Should output Yes
-        std::cout << "Is 'grape' in hash table? " << (ht.containsString("grape") ? "Yes" : "No") << std::endl; // Should output No
+        std::cout << "Is apple in hash table? " << (ht.containsString("apple") ? "Yes" : "No") << std::endl; // Should output Yes
+        std::cout << "Is grape in hash table? " << (ht.containsString("grape") ? "Yes" : "No") << std::endl; // Should output No
+
+        ht.put("pear");
+        std::cout << "Is pear in hash table? " << (ht.containsString("pear") ? "Yes" : "No") << std::endl; // Should output Yes
     }
 
     int main() {
-        std::cout << "Testing BinarySearchTree..." << std::endl;
+        std::cout << "Testing BinarySearchTree: " << std::endl;
         testBinarySearchTree();
         std::cout << std::endl;
 
-        std::cout << "Testing LinkedList..." << std::endl;
+        std::cout << "Testing LinkedList: " << std::endl;
         testLinkedList();
         std::cout << std::endl;
 
-        std::cout << "Testing HashTable..." << std::endl;
+        std::cout << "Testing HashTable: " << std::endl;
         testHashTable();
         std::cout << std::endl;
 

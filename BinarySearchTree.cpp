@@ -260,6 +260,7 @@ namespace BST_NS {
             return treeHeight(root);
         }
 
+    private:
         /**
          * @brief helper method to all the nodes in a tree recursively 
          * 
@@ -271,7 +272,7 @@ namespace BST_NS {
          * @return the new tree with the copied nodes
         */
         template<class T>
-        TreeNode<T>* copyTree(TreeNode<T>* node) {
+        TreeNode<T>* BinarySearchTree<T>::copyTree(TreeNode<T>* node) {
             if (node == nullptr)
                 return nullptr;
             else
@@ -286,7 +287,7 @@ namespace BST_NS {
          * @note traverses through whole tree and recursively goes through all nodes
         */
         template<class T>
-        void deleteTreeHelper(TreeNode<T>* node) {
+        void BinarySearchTree<T>::deleteTreeHelper(TreeNode<T>* node) {
             if (node != nullptr) {
                 deleteTreeHelper(node->leftLink);
                 deleteTreeHelper(node->rightLink);
@@ -303,7 +304,7 @@ namespace BST_NS {
          * @note prints out the data, then recursively goes through left and right subtrees
         */
         template<class T>
-        void preOrderHelper(TreeNode<T>* node) {
+        void BinarySearchTree<T>::preOrderHelper(TreeNode<T>* node) {
             if (node != nullptr) {
                 std::cout << node->data << " ";
                 preOrderHelper(node->leftLink);
@@ -319,7 +320,7 @@ namespace BST_NS {
          * @note recursively goes through left subtree, then prints, then right subtree
         */
         template<class T>
-        void inOrderHelper(TreeNode<T>* node) {
+        void BinarySearchTree<T>::inOrderHelper(TreeNode<T>* node) {
             if (node != nullptr) {
                 inOrderHelper(node->leftLink);
                 std::cout << node->data << " ";
@@ -335,7 +336,7 @@ namespace BST_NS {
          * @note recursively goes through left subtree, then right subtree, then prints
         */
         template<class T>
-        void postOrderHelper(TreeNode<T>* node){
+        void BinarySearchTree<T>::postOrderHelper(TreeNode<T>* node) {
             if (node != nullptr) {
                 postOrderHelper(node->leftLink);
                 postOrderHelper(node->rightLink);
@@ -352,7 +353,7 @@ namespace BST_NS {
          * @note else recursively find the max height by traversing through left and right subtrees
         */
         template<class T>
-        int treeHeight(TreeNode<T>* node) {
+        int BinarySearchTree<T>::treeHeight(TreeNode<T>* node) {
             if (node == nullptr)
                 return -1;
             else
@@ -369,7 +370,7 @@ namespace BST_NS {
          *       and recursively copies left and right subtrees
         */
         template<class T>
-        void copyNodes(TreeNode<T>*& current, const TreeNode<T>* otherNode) {
+        void BinarySearchTree<T>::copyNodes(TreeNode<T>*& current, const TreeNode<T>* otherNode) {
             if (otherNode->left != nullptr) {
                 current->left = new TreeNode<T>(*otherNode->left); // Copy left child
                 copyNodes(current->left, otherNode->left); // Recursively copy its left subtree

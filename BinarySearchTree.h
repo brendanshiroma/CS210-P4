@@ -52,6 +52,20 @@ namespace BST_NS
         TreeNode<T> *root;
         int tree_size;
 
+        TreeNode<T>* copyTree(TreeNode<T>* node);
+        
+        void deleteTreeHelper(TreeNode<T>* node);
+
+        void preOrderHelper(TreeNode<T>* node) const ;
+
+        void inOrderHelper(TreeNode<T>* node) const ;
+
+        void postOrderHelper(TreeNode<T>* node) const ;
+
+        int treeHeight(TreeNode<T>* node);
+
+        void copyNodes(TreeNode<T>*& current, const TreeNode<T>* otherNode);
+
     public:
         /**
          * @brief Default Constructor
@@ -176,21 +190,6 @@ namespace BST_NS
          */
         int height();
 
-        private:
-
-        TreeNode<T>* copyTree(TreeNode<T>* node);
-        
-        void deleteTreeHelper(TreeNode<T>* node);
-
-        void preOrderHelper(TreeNode<T>* node);
-
-        void inOrderHelper(TreeNode<T>* node);
-
-        void postOrderHelper(TreeNode<T>* node);
-
-        int treeHeight(TreeNode<T>* node);
-
-        void copyNodes(TreeNode<T>*& current, const TreeNode<T>* otherNode);
     };
 
 }

@@ -8,6 +8,7 @@
 
 namespace BST_NS {
 
+
         /**
          * @brief Construct a new Binary Search Tree object, copying off another tree
          * 
@@ -260,7 +261,6 @@ namespace BST_NS {
             return treeHeight(root);
         }
 
-    private:
         /**
          * @brief helper method to all the nodes in a tree recursively 
          * 
@@ -304,7 +304,7 @@ namespace BST_NS {
          * @note prints out the data, then recursively goes through left and right subtrees
         */
         template<class T>
-        void BinarySearchTree<T>::preOrderHelper(TreeNode<T>* node) {
+        void BinarySearchTree<T>::preOrderHelper(TreeNode<T>* node) const {
             if (node != nullptr) {
                 std::cout << node->data << " ";
                 preOrderHelper(node->leftLink);
@@ -320,7 +320,7 @@ namespace BST_NS {
          * @note recursively goes through left subtree, then prints, then right subtree
         */
         template<class T>
-        void BinarySearchTree<T>::inOrderHelper(TreeNode<T>* node) {
+        void BinarySearchTree<T>::inOrderHelper(TreeNode<T>* node) const {
             if (node != nullptr) {
                 inOrderHelper(node->leftLink);
                 std::cout << node->data << " ";
@@ -336,7 +336,7 @@ namespace BST_NS {
          * @note recursively goes through left subtree, then right subtree, then prints
         */
         template<class T>
-        void BinarySearchTree<T>::postOrderHelper(TreeNode<T>* node) {
+        void BinarySearchTree<T>::postOrderHelper(TreeNode<T>* node) const {
             if (node != nullptr) {
                 postOrderHelper(node->leftLink);
                 postOrderHelper(node->rightLink);
@@ -371,13 +371,14 @@ namespace BST_NS {
         */
         template<class T>
         void BinarySearchTree<T>::copyNodes(TreeNode<T>*& current, const TreeNode<T>* otherNode) {
-            if (otherNode->left != nullptr) {
-                current->left = new TreeNode<T>(*otherNode->left); // Copy left child
-                copyNodes(current->left, otherNode->left); // Recursively copy its left subtree
+            if (otherNode->leftLink != nullptr) {
+                current->leftLink = new TreeNode<T>(*otherNode->leftLink); // Copy left child
+                copyNodes(current->leftLink, otherNode->leftLink); // Recursively copy its left subtree
             }
-            if (otherNode->right != nullptr) {
-                current->right = new TreeNode<T>(*otherNode->right); // Copy right child
-                copyNodes(current->right, otherNode->right); // Recursively copy its right subtree
+            if (otherNode->rightLink != nullptr) {
+                current->rightLink = new TreeNode<T>(*otherNode->rightLink); // Copy right child
+                copyNodes(current->rightLink, otherNode->rightLink); // Recursively copy its right subtree
             }
         }
+
 } // namespace BST_NS

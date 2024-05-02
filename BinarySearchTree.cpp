@@ -287,7 +287,7 @@ namespace BST_NS {
          * @note traverses through whole tree and recursively goes through all nodes
         */
         template<class T>
-        void deleteTreeHelper(TreeNode<T>* &node) {
+        void deleteTreeHelper(TreeNode<T>* node) {
             if (node != nullptr) {
                 deleteTreeHelper(node->leftLink);
                 deleteTreeHelper(node->rightLink);

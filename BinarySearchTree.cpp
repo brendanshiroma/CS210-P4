@@ -9,14 +9,6 @@
 namespace BST_NS {
 
         /**
-         * @brief Construct a new Binary Search Tree object
-         * 
-         * @note initializes the root to be nullptr, and size to be 0
-        */
-        template<class T>
-        BinarySearchTree<T>::BinarySearchTree() : root(nullptr), tree_size(0) {}
-
-        /**
          * @brief Construct a new Binary Search Tree object, copying off another tree
          * 
          * @note initializes the root to copy the other tree's root, and sets size to other 
@@ -85,6 +77,7 @@ namespace BST_NS {
          * 
          * @note need to restructure tree after removal
         */
+        template<class T>
         void BinarySearchTree<T>::remove(T item) {
             if (root == nullptr) // If the tree is empty, there's nothing to remove
                 return;
@@ -200,7 +193,7 @@ namespace BST_NS {
             }
             return *this;
         }
-
+ 
         /**
          * @brief emptys all the nodes in the tree
          * 
@@ -267,7 +260,7 @@ namespace BST_NS {
             return treeHeight(root);
         }
 
-    namespace {
+    private:
         /**
          * @brief helper method to all the nodes in a tree recursively 
          * 
@@ -387,5 +380,4 @@ namespace BST_NS {
                 copyNodes(current->right, otherNode->right); // Recursively copy its right subtree
             }
         }
-    }
 } // namespace BST_NS

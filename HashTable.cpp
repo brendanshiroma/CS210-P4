@@ -80,11 +80,11 @@ namespace HashTableNS {
     */
     // Compute hash value for string
     int HashTable::computeHash(string s) {
-        const int modulo = 1000000007;  // A large prime number for modulo operation
+        const int modulo = 193;  // A large prime number for modulo operation
         int hash = 0;
-        for (char c : s) {
-            hash = (hash * 128 + int(c)) % modulo; // 128 is the maximum ASCII value for a character
-        }
+        for (size_t i = 0; i < s.length(); ++i) {
+                hash = (hash * 128 + static_cast<int>(s[i])) % modulo; // 128 is the maximum ASCII value for a character
+            }
         return hash % SIZE;
     }
 

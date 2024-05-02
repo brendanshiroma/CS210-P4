@@ -1,6 +1,7 @@
 #include <iostream>
 #include "BinarySearchTree.h"
 #include "HashTable.h"
+#include "LinkedList.h"
 
     void testBinarySearchTree() {
         // Test BinarySearchTree

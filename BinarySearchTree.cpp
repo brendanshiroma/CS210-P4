@@ -260,7 +260,6 @@ namespace BST_NS {
             return treeHeight(root);
         }
 
-    private:
         /**
          * @brief helper method to all the nodes in a tree recursively 
          * 
